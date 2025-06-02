@@ -6,4 +6,5 @@ df = pd.read_csv('..\\Dataset\\Diabetes.csv')
 def model1():
         print(list(df.columns))
 
-model1()
+def model2():
+        print("Hi i am in the Regression.py file which is created by the Uditya Narayan Tiwari")
