@@ -52,6 +52,7 @@ X_train_scaled = sc.fit_transform(X_train)
 X_test_scaled = sc.transform(X_test)
 print('Feature scaling is done')
 
+
 # Calling the model
 model_logistic = LogisticRegression()
 model_logistic.fit(X_train_scaled, y_train)
