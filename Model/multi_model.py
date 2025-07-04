@@ -10,6 +10,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
 # from google.colab import drive
 
 # drive.mount('/content/drive')
@@ -81,7 +82,6 @@ def DecisionTree_model(X_train_scaled, X_test_scaled, y_train, y_test):
     print(classification_report(y_test, y_pred_logi_test))
 
 
-
 def KNN_model(X_train_scaled, X_test_scaled, y_train, y_test):
     model1 = KNeighborsClassifier( n_neighbors= 10)
     model1.fit(X_train_scaled, y_train)
@@ -95,4 +95,3 @@ def model_list():
 
 if __name__=='__main__':
     model_list()
-
