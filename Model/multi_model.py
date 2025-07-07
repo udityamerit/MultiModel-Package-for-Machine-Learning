@@ -16,55 +16,56 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 # drive.mount('/content/drive')
 
 # df = pd.read_csv('/content/drive/MyDrive/Datasets/diabetes.csv')
-
 df = pd.read_csv('..\\Dataset\\diabetes.csv')
-df.head()
+def preprocessing(df):
 
-col = list(df.columns)
-col
+    df.head()
 
-# getting the info about the dataset
-df.info()
+    col = list(df.columns)
+    col
 
-df.isnull().cumsum()
+    # getting the info about the dataset
+    df.info()
 
-df.describe()
+    df.isnull().cumsum()
 
-# Selecting the Targeted columns and Non-Targeted columns
-X = df.drop(df[['Outcome']], axis=1)
-# or you can write it as X = df.drop(['Outcomes'], axis = 1)
-y = df['Outcome']
+    df.describe()
 
-# Checking the Columns of X for taking input features
-features = list(X.columns)
-features
+    # Selecting the Targeted columns and Non-Targeted columns
+    X = df.drop(df[['Outcome']], axis=1)
+    # or you can write it as X = df.drop(['Outcomes'], axis = 1)
+    y = df['Outcome']
 
-# Spliting the values in Testing and Traing
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=42)
-print('Data spliting is done')
+    # Checking the Columns of X for taking input features
+    features = list(X.columns)
+    features
 
-# Getting the Training and Testing dataset size
-print(f'Size of Training dataset: {len(X_train)} ')
-print(f'Size of Testing dataset: {len(X_test)}')
+    # Spliting the values in Testing and Traing
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=42)
+    print('Data spliting is done')
 
-# Normalization the data
-sc = StandardScaler()
-X_train_scaled = sc.fit_transform(X_train)
-X_test_scaled = sc.transform(X_test)
-print('Feature scaling is done')
+    # Getting the Training and Testing dataset size
+    print(f'Size of Training dataset: {len(X_train)} ')
+    print(f'Size of Testing dataset: {len(X_test)}')
+
+    # Normalization the data
+    sc = StandardScaler()
+    X_train_scaled = sc.fit_transform(X_train)
+    X_test_scaled = sc.transform(X_test)
+    print('Feature scaling is done')
 
 
-# Calling the model
-model_logistic = LogisticRegression()
-model_logistic.fit(X_train_scaled, y_train)
-print("Model training is done")
+    # Calling the model
+    model_logistic = LogisticRegression()
+    model_logistic.fit(X_train_scaled, y_train)
+    print("Model training is done")
 
-y_pred_logi_test = model_logistic.predict(X_test_scaled)
-y_pred_logi_train = model_logistic.predict(X_train_scaled)
-print("Model prediction is done")
+    y_pred_logi_test = model_logistic.predict(X_test_scaled)
+    y_pred_logi_train = model_logistic.predict(X_train_scaled)
+    print("Model prediction is done")
 
 # Defining the functions of different models
-def Regression_model(X_train_scaled, X_test_scaled, y_train, y_test):
+def Regression_model():
     model1 = LogisticRegression()
     model1.fit(X_train_scaled, y_train)
     y_pred_logi_test = model1.predict(X_test_scaled)
@@ -73,7 +74,7 @@ def Regression_model(X_train_scaled, X_test_scaled, y_train, y_test):
     print(classification_report(y_test, y_pred_logi_test))
 
 
-def DecisionTree_model(X_train_scaled, X_test_scaled, y_train, y_test):
+def DecisionTree_model():
     model1 = DecisionTreeClassifier()
     model1.fit(X_train_scaled, y_train)
     y_pred_logi_test = model1.predict(X_test_scaled)
@@ -82,7 +83,7 @@ def DecisionTree_model(X_train_scaled, X_test_scaled, y_train, y_test):
     print(classification_report(y_test, y_pred_logi_test))
 
 
-def KNN_model(X_train_scaled, X_test_scaled, y_train, y_test):
+def KNN_model():
     model1 = KNeighborsClassifier( n_neighbors= 10)
     model1.fit(X_train_scaled, y_train)
     y_pred_logi_test = model1.predict(X_test_scaled)
@@ -91,7 +92,10 @@ def KNN_model(X_train_scaled, X_test_scaled, y_train, y_test):
     print(classification_report(y_test, y_pred_logi_test))
 
 def model_list():
-    print([Regression_model(X_train_scaled, X_test_scaled, y_train, y_test), DecisionTree_model(X_train_scaled, X_test_scaled, y_train, y_test), KNN_model(X_train_scaled, X_test_scaled, y_train, y_test)])
+    print([Regression_model(), DecisionTree_model(), KNN_model()])
+
+def pre_processing():
+    print(preprocessing(df))
 
 if __name__=='__main__':
     model_list()
