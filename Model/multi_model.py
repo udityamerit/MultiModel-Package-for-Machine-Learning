@@ -17,19 +17,25 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 
 # df = pd.read_csv('/content/drive/MyDrive/Datasets/diabetes.csv')
 df = pd.read_csv('..\\Dataset\\diabetes.csv')
-def preprocessing(df):
 
-    df.head()
+def preprocessing(df, verbose=True):
+    # Declaring the Global variables for used throughout the code
+    global X, y, y_test,y_train, X_test_scaled, X_train_scaled, y_pred_logi_test, y_pred_logi_train
 
-    col = list(df.columns)
-    col
+    if verbose:
+        df.head()
 
-    # getting the info about the dataset
-    df.info()
+        col = list(df.columns)
+        col
 
-    df.isnull().cumsum()
+        # getting the info about the dataset
+        df.info()
 
-    df.describe()
+        df.isnull().cumsum()
+
+        df.describe()
+
+        
 
     # Selecting the Targeted columns and Non-Targeted columns
     X = df.drop(df[['Outcome']], axis=1)
@@ -42,27 +48,35 @@ def preprocessing(df):
 
     # Spliting the values in Testing and Traing
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=42)
-    print('Data spliting is done')
+    
+    if verbose:
+        print('Data spliting is done')
 
-    # Getting the Training and Testing dataset size
-    print(f'Size of Training dataset: {len(X_train)} ')
-    print(f'Size of Testing dataset: {len(X_test)}')
+        # Getting the Training and Testing dataset size
+        print(f'Size of Training dataset: {len(X_train)} ')
+        print(f'Size of Testing dataset: {len(X_test)}')
 
-    # Normalization the data
+        # Normalization the data
     sc = StandardScaler()
     X_train_scaled = sc.fit_transform(X_train)
     X_test_scaled = sc.transform(X_test)
-    print('Feature scaling is done')
+
+    if verbose:
+        print('Feature scaling is done')
 
 
     # Calling the model
     model_logistic = LogisticRegression()
     model_logistic.fit(X_train_scaled, y_train)
-    print("Model training is done")
+
+    if verbose:
+        print("Model training is done")
 
     y_pred_logi_test = model_logistic.predict(X_test_scaled)
     y_pred_logi_train = model_logistic.predict(X_train_scaled)
-    print("Model prediction is done")
+
+    if verbose:
+        print("Model prediction is done")
 
 # Defining the functions of different models
 def Regression_model():
@@ -91,13 +105,17 @@ def KNN_model():
     print(f'KNN Accuracy: {logistic_accuracy*100} % ')
     print(classification_report(y_test, y_pred_logi_test))
 
-def model_list():
-    print([Regression_model(), DecisionTree_model(), KNN_model()])
 
 def pre_processing():
-    print(preprocessing(df))
+    print(preprocessing(df, verbose=True))
+
+def model_list():
+    preprocessing(df, verbose=False)
+    print([Regression_model(), DecisionTree_model(), KNN_model()])
+
 
 if __name__=='__main__':
     model_list()
+    pre_processing()
     
     
