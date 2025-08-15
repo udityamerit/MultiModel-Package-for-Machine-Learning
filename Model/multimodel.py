@@ -97,9 +97,31 @@ class MultiModelClassifier:
             name, report, matrix, accuracy = best_model
             print(f"\n{'='*40}\nBest Model: {name}\n\nClassification Report:\n{report}\nConfusion Matrix:\n{matrix}\n\nAccuracy: {accuracy}\n")
 
+    def plot_comparison(self, models):
+        try:
+            model_names = [str(m[0]) for m in models]
+            accuracies = [float(m[3]) for m in models]
+        except (IndexError, ValueError, TypeError) as e:
+            print("Error extracting model names or accuracies:", e)
+            return
 
+        cmap = plt.get_cmap('tab10')  
+        colors = [cmap(i % 10) for i in range(len(model_names))]
 
+        plt.figure(figsize=(10, 6))
+        bars = plt.bar(model_names, accuracies, color=colors)
 
+        plt.title("Models Accuracy Comparison")
+        plt.xlabel("Models")
+        plt.ylabel("Accuracy")
+        plt.ylim(0, 1)
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+
+        for bar, acc in zip(bars, accuracies):
+            plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.01, f"{acc:.2f}", ha='center', va='bottom')
+
+        plt.show()
 
 
 
