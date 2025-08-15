@@ -11,108 +11,89 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.metrics import accuracy_score, classification_report
 
 from process import X_y
-X,y = X_y()
 
-# print(X.columns)
+class MultiModelClassifier:
 
+    def __init__(self, X, y):
+        self.X = X
+        self.y = y
 
-# Defining the functions of different models
-def Regression_model(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    sc = StandardScaler()
-    X_train_scaled = sc.fit_transform(X_train)
-    X_test_scaled = sc.transform(X_test)
+    def Regression_model(self):
+        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.3, random_state=42)
+        sc = StandardScaler()
+        X_train_scaled = sc.fit_transform(X_train)
+        X_test_scaled = sc.transform(X_test)
 
-    model1 = LogisticRegression()
-    model1.fit(X_train_scaled, y_train)
-    y_pred_logi_test = model1.predict(X_test_scaled)
-    logistic_accuracy = accuracy_score(y_test, y_pred_logi_test)
-    # print(f'Logistic Regression Accuracy: {logistic_accuracy*100} % ')
-    # print("Regression Model: ")
-    reg_classificaiton = classification_report(y_test, y_pred_logi_test)
-    return reg_classificaiton
+        model = LogisticRegression()
+        model.fit(X_train_scaled, y_train)
+        y_pred = model.predict(X_test_scaled)
+        report = classification_report(y_test, y_pred)
+        return report
 
-def Support_vector_model(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    sc = StandardScaler()
-    X_train_scaled = sc.fit_transform(X_train)
-    X_test_scaled = sc.transform(X_test)
-    svc = SVC(kernel='linear')
-    svc.fit(X_train_scaled, y_train)
-    y_pred_svc = svc.predict(X_test_scaled)
-    svc_accuracy = accuracy_score(y_test, y_pred_svc)
-    svc_classification_report = classification_report(y_test,y_pred_svc)
-    # print("Support Vector Model: ")
-    return svc_classification_report
+    def Support_vector_model(self):
+        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.3, random_state=42)
+        sc = StandardScaler()
+        X_train_scaled = sc.fit_transform(X_train)
+        X_test_scaled = sc.transform(X_test)
 
+        svc = SVC(kernel='linear')
+        svc.fit(X_train_scaled, y_train)
+        y_pred = svc.predict(X_test_scaled)
+        report = classification_report(y_test, y_pred)
+        return report
 
-def DecisionTree_model(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    sc = StandardScaler()
-    X_train_scaled = sc.fit_transform(X_train)
-    X_test_scaled = sc.transform(X_test)
+    def DecisionTree_model(self):
+        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.3, random_state=42)
+        sc = StandardScaler()
+        X_train_scaled = sc.fit_transform(X_train)
+        X_test_scaled = sc.transform(X_test)
 
-    model1 = DecisionTreeClassifier()
-    model1.fit(X_train_scaled, y_train)
-    y_pred_logi_test = model1.predict(X_test_scaled)
-    logistic_accuracy = accuracy_score(y_test, y_pred_logi_test)
-    # print(f'DecisionTree Accuracy: {logistic_accuracy*100} % ')
-    # print("Decision Tree Model: ")
-    decision = classification_report(y_test, y_pred_logi_test)
-    return decision
+        model = DecisionTreeClassifier()
+        model.fit(X_train_scaled, y_train)
+        y_pred = model.predict(X_test_scaled)
+        report = classification_report(y_test, y_pred)
+        return report
 
+    def KNN_model(self):
+        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.3, random_state=42)
+        sc = StandardScaler()
+        X_train_scaled = sc.fit_transform(X_train)
+        X_test_scaled = sc.transform(X_test)
 
-def KNN_model(X, y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    sc = StandardScaler()
-    X_train_scaled = sc.fit_transform(X_train)
-    X_test_scaled = sc.transform(X_test)
+        model = KNeighborsClassifier(n_neighbors=10)
+        model.fit(X_train_scaled, y_train)
+        y_pred = model.predict(X_test_scaled)
+        report = classification_report(y_test, y_pred)
+        return report
 
-    model1 = KNeighborsClassifier( n_neighbors= 10)
-    model1.fit(X_train_scaled, y_train)
-    y_pred_logi_test = model1.predict(X_test_scaled)
-    logistic_accuracy = accuracy_score(y_test, y_pred_logi_test)
-    # print(f'KNN Accuracy: {logistic_accuracy*100} % ')
-    # print("KNN Model: ")
-    knn = classification_report(y_test, y_pred_logi_test)
-    return knn
+    def Naive_Bayes_model(self):
+        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.3, random_state=42)
+        sc = StandardScaler()
+        X_train_scaled = sc.fit_transform(X_train)
+        X_test_scaled = sc.transform(X_test)
 
-def Naive_Bayes_model(X, y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    sc = StandardScaler()
-    X_train_scaled = sc.fit_transform(X_train)
-    X_test_scaled = sc.transform(X_test)
+        model = GaussianNB()
+        model.fit(X_train_scaled, y_train)
+        y_pred = model.predict(X_test_scaled)
+        report = classification_report(y_test, y_pred)
+        return report
 
-    model1 = GaussianNB()
-    model1.fit(X_train_scaled, y_train)
-    y_pred_logi_test = model1.predict(X_test_scaled)
-    logistic_accuracy = accuracy_score(y_test, y_pred_logi_test)
-    # print(f'KNN Accuracy: {logistic_accuracy*100} % ')
+    def run_all_models(self):
+        models = [
+            ('Regression model', self.Regression_model()),
+            ('Support vector model', self.Support_vector_model()),
+            ('Decision Tree model', self.DecisionTree_model()),
+            ('KNN model', self.KNN_model()),
+            ('Naive Bayes model', self.Naive_Bayes_model())
+        ]
 
-    naive = classification_report(y_test, y_pred_logi_test)
+        for name, report in models:
+            print(f"{name}:\n{report}\n")
 
-    return naive
-
-
-def run_all_model(X, y):
-    models = [
-        ("Regression model", Regression_model(X, y)),
-        ("Support vector model", Support_vector_model(X, y)),
-        ("Decision Tree model", DecisionTree_model(X, y)),
-        ("KNN model", KNN_model(X, y)),
-        ("Naive Bayes model", Naive_Bayes_model(X, y))
-    ]
-
-    for name, model in models:
-        print(f"{name}:\n {model}")
-
-
-
-
-if __name__=='__main__':
-    run_all_model(X, y)
-    
-    
+if __name__ == '__main__':
+    X, y = X_y()
+    ml_models = MultiModelClassifier(X, y)
+    ml_models.run_all_models()

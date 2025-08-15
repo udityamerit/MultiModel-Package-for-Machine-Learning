@@ -58,5 +58,5 @@ print(Item.pay_rate)
 
 # print(Item.__dict__) ## it is showing the all attributes present in the class
 # item2.pay_rate = 0.7
-item2.apply_discount()
-print(item2.price)
+d = item2.apply_discount()
+print(d)
