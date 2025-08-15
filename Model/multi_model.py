@@ -90,10 +90,14 @@ class MultiModelClassifier:
             ('Naive Bayes model', self.Naive_Bayes_model())
         ]
 
+        return models
+
+    def get_summary(self, models):
         for name, report in models:
             print(f"{name}:\n{report}\n")
 
+
 if __name__ == '__main__':
-    X, y = X_y()
-    ml_models = MultiModelClassifier(X, y)
-    ml_models.run_all_models()
+    MultiModelClassifier()
+
+
