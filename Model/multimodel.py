@@ -107,6 +107,9 @@ class MultiModelClassifier:
             plt.ylabel('True Label')
             plt.show()
 
+    def Roc_curves(self):
+        pass
+
     def plot_comparison(self, models):
         model_names = [str(m[0]) for m in models]
         accuracies = [float(m[3]) for m in models]
