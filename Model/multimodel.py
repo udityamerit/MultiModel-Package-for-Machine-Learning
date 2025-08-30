@@ -6,12 +6,12 @@ import warnings
 warnings.filterwarnings('ignore')
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression, LinearRegression, Lasso, Ridge
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.svm import SVC, SVR
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, mean_absolute_error, mean_squared_error, r2_score
 
 class MultiModelClassifier:
 
