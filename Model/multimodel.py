@@ -167,6 +167,24 @@ class MultiModelClassifier:
         plt.grid(True)
         plt.show()
 
+class MultiModelRegressior:
+
+    def __init__(self, X, y, test_size=0.3, scale = False):
+        self.X = X
+        self.y = y
+        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=test_size, random_state=42)
+        self.scaler = StandardScaler()
+        if scale==True:
+            self.X_train_scaled = self.scaler.fit_transform(X_train)
+            self.X_test_scaled = self.scaler.transform(X_test)
+        else:
+            self.X_train_scaled = X_train
+            self.X_test_scaled = X_test
+        self.y_train = y_train
+        self.y_test = y_test
+
+
+
 
 if __name__ == '__main__':
     MultiModelClassifier()
