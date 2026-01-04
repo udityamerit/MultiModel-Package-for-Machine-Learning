@@ -82,7 +82,6 @@ class MultiModelClassifier:
             ('Naive Bayes model', *self.Naive_Bayes_model())
         ]
         return models
-
  
     def get_summary(self, models):
         best_model = max(models, key=lambda m: m[3]) if models else None
