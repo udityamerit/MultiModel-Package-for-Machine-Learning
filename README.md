@@ -1,9 +1,7 @@
 # 🤖 multimodel: A Comprehensive Machine Learning Model Comparison Package
 
 **multimodel** is a Python package designed to **compare multiple supervised and unsupervised machine learning models** for both **classification** and **regression** tasks. It automates model training, evaluation, visualization, and selects the best-performing model based on standard metrics.
-
 ---
-
 ## 🚀 Key Features
 
 - ✅ Supports **Supervised** and **Unsupervised** learning  
