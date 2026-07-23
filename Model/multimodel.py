@@ -244,7 +244,7 @@ class MultiModelRegressior:
         for name, mae, mse, rmse, r2, y_pred in models:
             print(f"\n{'='*40}\n{name}\nMAE: {mae:.4f} | MSE: {mse:.4f} | RMSE: {rmse:.4f} | R2: {r2:.4f}\n")
         if best_model:
-            print(f"\n{'='*60}\n ⭐ BEST REGRESSOR: {best_model[0]} | R2 Score: {best_model[4]:.4f}\n{'='*60}\n")
+            print(f"\n{'='*60}\n BEST REGRESSOR: {best_model[0]} | R2 Score: {best_model[4]:.4f}\n{'='*60}\n")
 
     def plot_comparison(self, models):
         model_names = [m[0] for m in models]
